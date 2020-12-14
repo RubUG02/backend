@@ -1,19 +1,16 @@
 const express = require("express");
+require("dotenv").config();
 
 //Crear servidor Express
 const app = express();
 
+//Acceso al directorio publico
+app.use(express.static('public'));
+
 //Rutas
-app.get('/',(req, res) => {
-    console.log("Se recibió una petición en /");
-    res.json({ 
-        ok:true,
-        msg:"Recibido",
-     });
-}
-);
+app.use('/api/auth', require('./routes/auth'));
 
 //Configuracion del puerto
-app.listen(4000, () => {
-    console.log('Backend corriendo en el puerto ${4000}');
+app.listen(process.env.PORT, () => {
+  console.log(`Backend corriendo en el puerto ${process.env.PORT}`);
 })
